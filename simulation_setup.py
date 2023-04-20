@@ -55,6 +55,8 @@ def load_obstacles(client,occ_grid_filename,scale_factor):
     
     return obj_id
 
+#Sends wheel speed commands to wheels
+
 def drive_wheels(wh_l,wh_r,robotID,sigma_2):
     max_force = 50000
     #This need to be done for curve planner method
@@ -75,7 +77,7 @@ def drive_wheels(wh_l,wh_r,robotID,sigma_2):
     
     return
 
-
+#Sets up the simulator
 def set_up(startPos,orientation,scale_factor,mask,occ_name):
     if p.isConnected(0)==True:
         p.disconnect()
@@ -211,10 +213,12 @@ def run_command_series(graph,occ_grid,current_pose_pred,ax,fig,node_path,time,we
             0, time[i], current_pose_pred, wh_speed[i], w_radius, width, sigma_2)
         drive_wheels(wh_speed[i][0], wh_speed[i][1], robotID,sigma_2)
         simPos,simAngle,step_size=step_sim(time[i], 1,robotID,physicsClient,ax,scale_factor)
+       #Introduces error into measurement- does nothing if sigma_p = 0
         Zt = np.random.multivariate_normal(
             simPos, sigma_p*np.identity(2))
         At = np.random.normal(
             simAngle, sigma_p)
+        #If uncertainty is true uses particle filter to generate current belief about state
         if uncertainty == True:
             current_pose_pred = pathing.PF_update(current_pose_pred, Zt, sigma_p)
             pred_x = np.mean(current_pose_pred[:,0,2])
@@ -223,10 +227,11 @@ def run_command_series(graph,occ_grid,current_pose_pred,ax,fig,node_path,time,we
             pred_pose = SE2(pred_x,pred_y,pred_ori)
         else:
             pred_pose = SE2(Zt[0],Zt[1],At)    
-        
+        #Add steps used for last command to step count tracker
         step_count +=step_size
-        
+        #This section of code performs the course correction
         if node_loc[i] != -1:
+            #I think the error that causes the code to kee running may be here
             target = graph.nodes[node_loc[i]]['pose']
             PosError, OriError,measure_pos,measure_ori = get_error(robotID, target.xyt(),scale_factor)
             print(f'Position Error: {PosError}')

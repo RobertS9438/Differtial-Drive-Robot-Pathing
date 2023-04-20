@@ -18,6 +18,7 @@ import math
 #output = pathing.test_logm()
 
 #This code plots the edges of the RRG graphs for display purposes
+#This can take a while to run, especially if there are a lot of edges with multiple wheel commands
 w_radius = 1
 width = 2
 N_samples = 300

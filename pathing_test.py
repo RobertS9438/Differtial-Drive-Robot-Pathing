@@ -41,4 +41,5 @@ map_size = np.asarray([[0,99],[0,99]])
 occ_grid = create_occ_grid.mask_occ_grid(occ_grid,width,False)
 graph = pathing.make_PRM(map_size, occ_grid, N_samples,path_func,d_max,cost_max,w_radius,width,max_wheel,opt_speed,particle_num,sigma_2,step_num,col_penalty,col_percent_max)
 finish = clock-time.time()
+#Tell what file to save graph to
 pickle.dump(graph, open('test_graph_PRM_est_curve_alt_many_100_mask.pickle', 'wb'))

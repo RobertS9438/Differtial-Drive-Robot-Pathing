@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import pickle
 import cv2
 
+#Only circle is actually implemented
 def gen_obstacle(obs_type,pos_limits, scale_limits):
     
     obj = np.random.choice(obs_type)

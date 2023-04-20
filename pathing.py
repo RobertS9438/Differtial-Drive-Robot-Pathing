@@ -134,7 +134,7 @@ def make_PRM(grid_scale, occ_grid, N_samples, path_func, d_max, cost_max, w_radi
 
     return G
 
-
+#Adds random nodes to existing PRM
 def expand_PRM(M_grid, occ_grid,  graph, N_samples, path_func, d_max, cost_max, w_radius, width, max_wheel, opt_speed, particle_num, sigma_2, step_num, col_penalty, col_percent_max, map_size):
 
     # To avoid repeating this calculation
@@ -152,7 +152,7 @@ def expand_PRM(M_grid, occ_grid,  graph, N_samples, path_func, d_max, cost_max, 
 
     return ()
 
-
+#Adds specific pose to PRM
 def add_to_PRM(new_node_pose, new_node_num, occ_grid, graph, path_func, d_max, cost_max, w_radius, width, max_wheel, opt_speed, particle_num, sigma_2, step_num, col_penalty, col_percent_max, map_size):
     # To avoid repeating this calculation
     d_max_2 = d_max**2
@@ -162,7 +162,7 @@ def add_to_PRM(new_node_pose, new_node_num, occ_grid, graph, path_func, d_max, c
 
     return (graph)
 
-
+#Recovers commands from node_path ourout of A_star_search
 def RecoverPath(path_graph, node_path):
 
     path = []
@@ -184,7 +184,7 @@ def RecoverPath(path_graph, node_path):
 
     return (path, weight, time, wh_speed,node_loc)
 
-
+#Same as above but for the edges with a series of commands each
 def RecoverPath_iter(path_graph, node_path):
 
     path = []
