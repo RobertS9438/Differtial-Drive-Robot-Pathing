@@ -32,12 +32,13 @@ sigma_p = 0
 step_num = 20
 col_penalty = 100000
 col_percent_max = 0.3
+#Pathing function used for adding nodes to graph
 #path_func = pathing.est_curve_alt
 path_func_add = pathing.spin_and_move_planning
 #path_func_add = pathing.est_curve_alt
 #path_func_add = pathing.curve_planner
-PosError_max = 10
-OriError_max = math.pi*0.3
+PosError_max = 10       #Max acceptable position error for course correcting algorithm
+OriError_max = math.pi*0.3  #Max acceptable orientation error for course correction algorithm
 #Determines if the system uses particle filter and gets noisy measurements
 uncertainty = False
 

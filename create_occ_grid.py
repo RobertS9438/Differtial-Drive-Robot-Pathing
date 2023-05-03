@@ -4,7 +4,7 @@ Created on Thu Mar 30 16:51:31 2023
 
 @author: rfsyl
 """
-#This code is for creating and handingte occupancy grid
+#This code is for creating and handling the occupancy grid
 
 import numpy as np
 import math
@@ -45,12 +45,14 @@ def gen_pos(pos_limits):
     
     return(x,y)
 
+#Generate a random obstacle size fro size_limits
 def gen_size(size_limits,num):
     
     size = np.random.uniform(size_limits[0],size_limits[1],num)
     
     return size
 
+#Generate a random distribution of obstacles and a corresponding occupancy grid
 def gen_occ_grid(N,M,map_size,obj_num,obj_types,pos_limits,scale_limits):
     
     occ_grid = np.zeros((N,M))
@@ -92,6 +94,8 @@ def gen_occ_grid(N,M,map_size,obj_num,obj_types,pos_limits,scale_limits):
     
     return(occ_grid,np.reshape(np.asarray(obj_list),(obj_num,1)),np.asarray(center_list),np.asarray(scale_list),error)
 
+
+#Saves occupancy grid to csv files using pandas library
 def save_occ_grid(name,N,M,map_size,obj_num,obj_types,pos_limits,scale_limits):
     
     [occ_grid,obj_list,center_list,scale_list,error_check] =gen_occ_grid(N,M,map_size,obj_num,obj_types,pos_limits,scale_limits)
@@ -115,6 +119,7 @@ def save_occ_grid(name,N,M,map_size,obj_num,obj_types,pos_limits,scale_limits):
         return("Error")
 
 
+#Load occupancy grid and associated occupancy grid
 def load_occ_grid(name):
 
     occ_grid = pd.read_csv(name)
@@ -136,7 +141,7 @@ def load_occ_grid(name):
     center = np.asarray(center)
     return(occ_grid,obj_list,center,scale,map_size)
                 
-                        
+ #Mask occupancy grid to give obstacles a buffer zone to accomodate robot width and increase path cost closer to obstacles                       
 def mask_occ_grid(occ_grid,width,fil_cost):
     
     #Can adjust Buffer Zone

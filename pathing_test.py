@@ -22,19 +22,19 @@ fig, ax = plt.subplots()
 im = ax.imshow(occ_grid)
 plt.show()
 '''
-w_radius = 1
-width = 2
-N_samples = 200
-d_max = 20
-cost_max = 1000
-max_wheel = math.pi
-opt_speed = 4
-particle_num =1
-sigma_2 = np.zeros(2)
-step_num = 20
-col_penalty = 10000
-col_percent_max = 0.3
-path_func = pathing.est_curve_alt
+w_radius = 1            #Robot wheel radius (m)
+width = 2               #Robot width (m)
+N_samples = 200         #Number of nodes
+d_max = 20              #Radius within which gragh will look for nodes with valid connections
+cost_max = 1000         #Maximum cost for a valid edge
+max_wheel = math.pi     #Maximum allowed wheel angular speed (rad/sec)
+opt_speed = 4           #Speed robot would prefer to move at (m/s)
+particle_num =1         #leave this at 1, it is a remnant from when the code evaluated edge cost using a particle filter
+sigma_2 = np.zeros(2)   #leave this as is (see above)
+step_num = 20           #Steps size used when checking for collisions with obstacles
+col_penalty = 10000     #Cost penalty for collisions
+col_percent_max = 0.3   #Remnant from particle filter cost calculation, leave as is
+path_func = pathing.est_curve_alt   #function used for inter-node path connection method from pathing.py
 
 map_size = np.asarray([[0,99],[0,99]])
 
